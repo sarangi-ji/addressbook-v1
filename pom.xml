@@ -5,7 +5,7 @@
     <groupId>com.preethidevops.tutorial</groupId>
     <artifactId>addressbook</artifactId>
     <packaging>war</packaging>
-    <version>11.0</version>
+    <version>20.0</version>
     <name>Vaadin Addressbook example</name>
 
     <properties>
@@ -519,7 +519,7 @@
     <snapshotRepository>
         <id>snapshots</id>
         <name>a0gmeoviecehz-artifactory-primary-0-snapshots</name>
-        <url>https://trialcnc18q.jfrog.io/artifactory/store-libs-snapshot-local</url>
+        <url>https://trialcnc18q.jfrog.io/artifactory/addressbook-artifact-libs-snapshot</url>
     </snapshotRepository>
 </distributionManagement>
 </project>
