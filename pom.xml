@@ -516,10 +516,10 @@
         </profile>
     </profiles>
 <distributionManagement>
-    <snapshotRepository>
-        <id>snapshots</id>
-        <name>a0gmeoviecehz-artifactory-primary-0-snapshots</name>
-        <url>https://trialcnc18q.jfrog.io/artifactory/addressbook-artifact-libs-snapshot</url>
-    </snapshotRepository>
+    <repository>
+        <id>central</id>
+        <name>a0gmeoviecehz-artifactory-primary-0-releases</name>
+        <url>https://trialcnc18q.jfrog.io/artifactory/store-libs-release-local</url>
+    </repository>
 </distributionManagement>
 </project>
