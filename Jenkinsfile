@@ -5,7 +5,7 @@ pipeline {
     }
     parameters{
         string(name: 'Env', defaultValue: 'Dev', description: 'in which env you wnat to to build')
-        booleanParam(name: 'unit-test', defaultValue: true, description: 'processed with unit test or not')
+        booleanParam(name: 'unit_test', defaultValue: true, description: 'processed with unit test or not')
         choice(name: 'package-version', choices: ['1.1 version', '1.2 version', '1.3 version'], description: 'package version need to select')
     } 
      environment {
@@ -46,7 +46,7 @@ pipeline {
             steps {
                 script{
                 echo 'code revietest using junit plugin'
-                echo "you want to skip testing ? ${params.unit-test}"
+                echo "you want to skip testing ? ${params.unit_test}"
                 sh 'mvn test'
             }
             }
