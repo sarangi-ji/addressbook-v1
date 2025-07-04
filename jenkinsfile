@@ -1,13 +1,17 @@
 pipeline {
-    agent any
+    agent none
+    tools{
+        maven 'maven install'
+    }
     parameters{
-        string (name: 'Env' ,defaultValue: 'Test' ,description: 'version to deploy')
+        string (name: 'Env' ,defaultValue: 'Test' ,description: 'provide the environment')
         booleanParam (name: 'executeTests' ,defaultValue: 'true' ,description: 'Decide to run test cases')
         choice (name: 'APPVERSION' ,choices: ['1.1','1.2','1.3'] ,description: 'select application version')
 
     }
     stages {
         stage('compile-code') {
+            agent {label 'slave-1'}
             steps {
                 echo 'Compiling the code'
                 echo 'Compiling in ${params.Env} environment'
@@ -15,12 +19,14 @@ pipeline {
         }
   
         stage('Review-code') {
+            agent {label 'slave-1'}
             steps {
                 echo 'Reviewing the code using sure-fires plugin'
             }
         }
    
         stage('Unit test') {
+            agent {label 'slave-1'}
             when{
                 expression{
                     params.executeTests == true
@@ -32,12 +38,14 @@ pipeline {
         }
     
         stage('Code analysis') {
+            agent {label 'slave-1'}
             steps {
                 echo 'Code analysis sucessfull using jacoco plugin'
             }
         }
     
         stage('code package') {
+            agent {label 'slave-1'}
             steps {
                 echo 'packaging the code sucessful'
                 echo 'packaging version is ${params.APPVERSION}'
@@ -45,6 +53,7 @@ pipeline {
         }
   
         stage('Deploy') {
+            agent {label 'slave-1'}
             steps {
                 echo 'Attaching the artifacts inside the jfrog'
             }
