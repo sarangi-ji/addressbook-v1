@@ -14,6 +14,7 @@ pipeline {
 
     stages {
         stage('compile') {
+            agent any
             steps {
                 script{
                 sshagent(['slave-3']) {
