@@ -7,16 +7,27 @@ pipeline {
         string (name: 'Env' ,defaultValue: 'Test' ,description: 'provide the environment')
         booleanParam (name: 'executeTests' ,defaultValue: 'true' ,description: 'Decide to run test cases')
         choice (name: 'APPVERSION' ,choices: ['1.1','1.2','1.3'] ,description: 'select application version')
+    
+environment {
+    BUILD_SERVER = "ec2-user@172.31.26.152"
+}
 
     }
     stages {
         stage('compile-code') {
-            agent {label 'slave-1'}
+            agent any
             steps {
                 script {
+                    sshagent{['slave-02']} {
                 echo 'Compiling the code'
                 echo "Compiling in ${params.Env} environment"
                 sh "mvn clean compile"
+                // added -o StrictHostkeychecking=no 
+                //it will copy this script file from master to slave 2
+                sh "scp -o StrictHostkeychecking=no server-script.sh ${BUILD_SERVER}:home/ec2-user/server-script.sh"
+                // run the bash for execute this script file after copy
+                sh "ssh -o StrictHostkeychecking=no -i ${BUILD_SERVER} 'bash home/ec2-user/server-script.sh'"
+                }
                 }
             }
         }
