@@ -24,7 +24,7 @@ pipeline {
                 //it will copy this script file from master to slave 2
                 sh "scp -o StrictHostkeychecking=no server-script.sh ${BUILD_SERVER}:home/ec2-user/server-script.sh"
                 // run the bash for execute this script file after copy
-                sh "ssh -o StrictHostkeychecking=no -i ${BUILD_SERVER} 'bash home/ec2-user/server-script.sh'"
+                sh "ssh -o StrictHostkeychecking=no ${BUILD_SERVER} 'bash home/ec2-user/server-script.sh'"
                 }
                 }
             }
