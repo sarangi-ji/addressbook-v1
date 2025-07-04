@@ -6,7 +6,7 @@ pipeline {
     parameters{
         string(name: 'Env', defaultValue: 'Dev', description: 'in which env you wnat to to build')
         booleanParam(name: 'unit_test', defaultValue: true, description: 'processed with unit test or not')
-        choice(name: 'package-version', choices: ['1.1 version', '1.2 version', '1.3 version'], description: 'package version need to select')
+        choice(name: 'package_version', choices: ['1.1 version', '1.2 version', '1.3 version'], description: 'package version need to select')
     } 
      environment {
     BUILD_SERVER="ec2-user@172.31.17.122"
@@ -65,7 +65,7 @@ pipeline {
             steps {
                 script{
                 echo 'code package using maven'
-                echo "code package version is ${params.package-version}"
+                echo "code package version is ${params.package_version}"
                 sh 'mvn package'
                 }
             }
