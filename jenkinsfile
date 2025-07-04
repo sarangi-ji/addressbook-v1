@@ -70,7 +70,7 @@ pipeline {
             steps {
                 script {
                 echo 'Attaching the artifacts inside the jfrog'
-                mvn " -u deploy -s settings.xml"
+                sh "mvn -U deploy -s settings.xml"
                 }
             }
         }
