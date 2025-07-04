@@ -40,7 +40,7 @@ pipeline {
             agent {label 'slave-1'}
             when {
                 expression {
-                    params.unit-test == true
+                    params.unit_test == true
                 }
             }
             steps {
