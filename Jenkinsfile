@@ -37,6 +37,11 @@ pipeline {
         }
         stage('unit test') {
             agent {label 'slave-1'}
+            when {
+                expression {
+                    params.unit-test == true
+                }
+            }
             steps {
                 script{
                 echo 'code revietest using junit plugin'
@@ -59,7 +64,7 @@ pipeline {
             steps {
                 script{
                 echo 'code package using maven'
-                echo "code package version is ${params.package-version}
+                echo "code package version is ${params.package-version}"
                 sh 'mvn package'
                 }
             }
