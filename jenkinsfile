@@ -11,7 +11,7 @@ pipeline {
     }
     stages {
         stage('compile-code') {
-            script{
+            script {
             agent {label 'slave-1'}
             steps {
                 echo 'Compiling the code'
@@ -22,7 +22,7 @@ pipeline {
         }
   
         stage('Review-code') {
-            script{
+            script {
             agent {label 'slave-1'}
             steps {
                 echo 'Reviewing the code using sure-fires plugin'
@@ -32,7 +32,7 @@ pipeline {
         }
    
         stage('Unit test') {
-            script{
+            script {
             agent {label 'slave-1'}
             when{
                 expression{
@@ -47,7 +47,7 @@ pipeline {
         }
     
         stage('Code analysis') {
-            script{
+            script {
             agent {label 'slave-1'}
             steps {
                 echo 'Code analysis sucessfull using jacoco plugin'
@@ -57,7 +57,7 @@ pipeline {
         }
     
         stage('code package') {
-            script{
+            script {
             agent {label 'slave-1'}
             steps {
                 echo 'packaging the code sucessful'
@@ -68,7 +68,7 @@ pipeline {
     }
   
         stage('Deploy') {
-            script{
+            script {
             agent {label 'slave-1'}
             steps {
                 echo 'Attaching the artifacts inside the jfrog'
