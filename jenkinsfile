@@ -11,21 +11,28 @@ pipeline {
     }
     stages {
         stage('compile-code') {
+            script{
             agent {label 'slave-1'}
             steps {
                 echo 'Compiling the code'
-                echo 'Compiling in ${params.Env} environment'
+                echo "Compiling in ${params.Env} environment"
+                sh "mvn clean compile"
             }
+        }
         }
   
         stage('Review-code') {
+            script{
             agent {label 'slave-1'}
             steps {
                 echo 'Reviewing the code using sure-fires plugin'
+                sh "pmd:pmd"
             }
+        }
         }
    
         stage('Unit test') {
+            script{
             agent {label 'slave-1'}
             when{
                 expression{
@@ -34,28 +41,39 @@ pipeline {
             }
             steps {
                 echo ' Test the code '
+                sh "mvn test"
             }
+        }
         }
     
         stage('Code analysis') {
+            script{
             agent {label 'slave-1'}
             steps {
                 echo 'Code analysis sucessfull using jacoco plugin'
+                sh "mvn verify"
             }
+        }
         }
     
         stage('code package') {
+            script{
             agent {label 'slave-1'}
             steps {
                 echo 'packaging the code sucessful'
-                echo 'packaging version is ${params.APPVERSION}'
+                echo "packaging version is ${params.APPVERSION}"
+                sh "mvn package"
             }
         }
+    }
   
         stage('Deploy') {
+            script{
             agent {label 'slave-1'}
             steps {
                 echo 'Attaching the artifacts inside the jfrog'
+                mvn " -u deploy -s settings.xml "
+            }
             }
         }
     }
